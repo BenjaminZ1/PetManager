@@ -37,22 +37,14 @@ namespace PetManager {
                    string.Equals(this.Breed, pet.Breed);
         }
 
-        public override bool Equals(object obj)
-        {
-            if (!(obj is Pet))
-            {
-                return object.Equals(obj, this);
-            }
-            var pet = (Pet)obj;
-            return Birthday.Equals(pet.Birthday) && string.Equals(this.Name, pet.Name) &&
-                   string.Equals(this.Breed, pet.Breed);
-        }
 
         public override int GetHashCode()
         {
             unchecked
             {
-
+                var hashCode = (this.Name != null ? this.Name.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (this.Breed != null ? this.Breed.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ this.Birthday.GetHashCode();
                 return hashCode;
             }
         }
