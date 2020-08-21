@@ -26,6 +26,16 @@ namespace PetManager {
         {
             Birthday = birthday;
         }
+        public override bool Equals(object obj)
+        {
+            if (!(obj is Pet))
+            {
+                return object.Equals(obj, this);
+            }
+            var pet = (Pet)obj;
+            return Birthday.Equals(pet.Birthday) && string.Equals(this.Name, pet.Name) &&
+                   string.Equals(this.Breed, pet.Breed);
+        }
 
         public override bool Equals(object obj)
         {
@@ -38,13 +48,11 @@ namespace PetManager {
                    string.Equals(this.Breed, pet.Breed);
         }
 
-        public int GetHashCode(Pet obj)
+        public override int GetHashCode()
         {
             unchecked
             {
-                var hashCode = (obj.Name != null ? obj.Name.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (obj.Breed != null ? obj.Breed.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ obj.Birthday.GetHashCode();
+
                 return hashCode;
             }
         }
