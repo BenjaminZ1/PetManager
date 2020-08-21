@@ -26,13 +26,26 @@ namespace PetManager {
         {
             Birthday = birthday;
         }
+        public override bool Equals(object obj)
+        {
+            if (!(obj is Pet))
+            {
+                return object.Equals(obj, this);
+            }
+            var pet = (Pet)obj;
+            return string.Equals(this.Name, pet.Name) && Birthday.Equals(pet.Birthday) &&
+                   string.Equals(this.Breed, pet.Breed);
+        }
 
 
-        public int GetHashCode(Pet obj)
+        public override int GetHashCode()
         {
             unchecked
             {
-                return ((obj.Name != null ? obj.Name.GetHashCode() : 0) * 397) ^ (obj.Breed != null ? obj.Breed.GetHashCode() : 0);
+                var hashCode = (this.Name != null ? this.Name.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (this.Breed != null ? this.Breed.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ this.Birthday.GetHashCode();
+                return hashCode;
             }
         }
 
