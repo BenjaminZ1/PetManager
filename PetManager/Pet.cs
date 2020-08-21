@@ -27,5 +27,14 @@ namespace PetManager {
             Birthday = birthday;
         }
 
+
+        public int GetHashCode(Pet obj)
+        {
+            unchecked
+            {
+                return ((obj.Name != null ? obj.Name.GetHashCode() : 0) * 397) ^ (obj.Breed != null ? obj.Breed.GetHashCode() : 0);
+            }
+        }
+
     }
 }
